@@ -99,9 +99,6 @@ public class AppleAuthenticationAndroidModule extends ReactContextBaseJavaModule
         Boolean nonceEnabled = configObject.hasKey("nonceEnabled")
           ? configObject.getBoolean("nonceEnabled")
           : true;
-        Boolean nonceHashEnabled = configObject.hasKey("nonceHashEnabled")
-          ? configObject.getBoolean("nonceHashEnabled")
-          : false;
         String rawNonce = "";
         String nonce = "";
 
@@ -137,17 +134,6 @@ public class AppleAuthenticationAndroidModule extends ReactContextBaseJavaModule
             } else {
                 // If no nonce is provided, generate one
                 nonce = rawNonce = UUID.randomUUID().toString();
-            }
-
-            if (nonceHashEnabled) {
-                // SHA256 of the nonce to keep in line with the iOS library (and avoid confusion)
-                try {
-                    MessageDigest md = MessageDigest.getInstance("SHA-256");
-                    md.update(nonce.getBytes());
-                    byte[] digest = md.digest();
-                    nonce = bytesToHex(digest);
-                } catch (Exception e) {
-                }
             }
         }
 
