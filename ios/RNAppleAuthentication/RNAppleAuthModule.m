@@ -93,13 +93,7 @@ RCT_EXPORT_METHOD(performRequest:
       ]
   ];
 
-  NSString *rawNonce = nil;
-  if (appleIdRequest.nonce) {
-    rawNonce = appleIdRequest.nonce;
-    if (appleIdRequest.nonceHashEnabled) {
-      appleIdRequest.nonce = [RNAppleAuthUtils stringBySha256HashingString:rawNonce];
-    }
-  }
+  NSString *rawNonce = appleIdRequest.nonce;
 
   __block RNAppleAuthASAuthorizationDelegates *delegates = [
       [RNAppleAuthASAuthorizationDelegates alloc]
